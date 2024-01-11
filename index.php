@@ -4,8 +4,15 @@ include("setup/setup.php");
 session_start();
 
 mysqli_set_charset(conectar(), 'utf8');
-$key=$_GET['id'];
-$_SESSION['id']=$_GET['id'];
+if(!isset(GET['id']))
+{
+  $key=1;
+  $_SESSION['id']=1;
+}else{
+  $key=$_GET['id'];
+  $_SESSION['id']=$_GET['id'];
+}
+
 
 $sql_restorant="SELECT direcciones.calle, direcciones.numero, direcciones.comuna, direcciones.region, restautantes.nombre, restautantes.id, restautantes.fono, restautantes.email, restautantes.foto FROM restautantes INNER JOIN direcciones ON restautantes.direcciones_id =
 direcciones.id WHERE restautantes.id = ".$key." AND restautantes.eliminado IS NULL";
